@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.HuowurukuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.HuowurukuEntity" id="huowurukuMap">
+        <result property="huowumingcheng" column="huowumingcheng"/>
+        <result property="huowuleixing" column="huowuleixing"/>
+        <result property="huowutupian" column="huowutupian"/>
+        <result property="huowuguige" column="huowuguige"/>
+        <result property="huowushuliang" column="huowushuliang"/>
+        <result property="huowuxiangqing" column="huowuxiangqing"/>
+        <result property="cangkubianhao" column="cangkubianhao"/>
+        <result property="cangkumingcheng" column="cangkumingcheng"/>
+        <result property="cangkuweizhi" column="cangkuweizhi"/>
+        <result property="changshangbianhao" column="changshangbianhao"/>
+        <result property="changshangmingcheng" column="changshangmingcheng"/>
+        <result property="fuzeren" column="fuzeren"/>
+        <result property="changshangdizhi" column="changshangdizhi"/>
+        <result property="lianxifangshi" column="lianxifangshi"/>
+        <result property="rukushijian" column="rukushijian"/>
+        <result property="yuangonggonghao" column="yuangonggonghao"/>
+        <result property="yuangongxingming" column="yuangongxingming"/>
+        <result property="rukubeizhu" column="rukubeizhu"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.HuowurukuVO" >
+		SELECT * FROM huowuruku  huowuruku         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.HuowurukuVO" >
+		SELECT  huowuruku.* FROM huowuruku  huowuruku 	
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.HuowurukuView" >
+
+		SELECT  huowuruku.* FROM huowuruku  huowuruku 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.HuowurukuView" >
+		SELECT * FROM huowuruku  huowuruku <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+    <select id="selectValue" resultType="map" >
+        SELECT ${params.xColumn}, sum(${params.yColumn}) total FROM huowuruku
+        <where> 1=1 ${ew.sqlSegment}</where>
+        group by ${params.xColumn}
+    </select>
+
+    <select id="selectTimeStatValue" resultType="map" >
+        <if test = 'params.timeStatType == "日"'>
+                SELECT DATE_FORMAT(${params.xColumn},'%Y-%m-%d') ${params.xColumn}, sum(${params.yColumn}) total FROM huowuruku
+                <where> 1=1 ${ew.sqlSegment}</where>
+                group by DATE_FORMAT(${params.xColumn},'%Y-%m-%d')
+        </if>
+        <if test = 'params.timeStatType == "月"'>
+                SELECT DATE_FORMAT(${params.xColumn},'%Y-%m') ${params.xColumn}, sum(${params.yColumn}) total FROM huowuruku
+                <where> 1=1 ${ew.sqlSegment}</where>
+                group by DATE_FORMAT(${params.xColumn},'%Y-%m')
+        </if>
+        <if test = 'params.timeStatType == "年"'>
+                SELECT DATE_FORMAT(${params.xColumn},'%Y') ${params.xColumn}, sum(${params.yColumn}) total FROM huowuruku
+                <where> 1=1 ${ew.sqlSegment}</where>
+                group by DATE_FORMAT(${params.xColumn},'%Y')
+        </if>
+    </select>
+    
+    <select id="selectGroup" resultType="map" >
+        SELECT ${params.column} , count(1) total FROM huowuruku
+        <where> 1=1 ${ew.sqlSegment}</where>
+        group by ${params.column}
+    </select>
+</mapper>

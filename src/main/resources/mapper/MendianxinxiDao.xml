@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.MendianxinxiDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.MendianxinxiEntity" id="mendianxinxiMap">
+        <result property="mendianbianhao" column="mendianbianhao"/>
+        <result property="mendianmingcheng" column="mendianmingcheng"/>
+        <result property="mendiandizhi" column="mendiandizhi"/>
+        <result property="zixundianhua" column="zixundianhua"/>
+        <result property="mendianxiangqing" column="mendianxiangqing"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.MendianxinxiVO" >
+		SELECT * FROM mendianxinxi  mendianxinxi         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.MendianxinxiVO" >
+		SELECT  mendianxinxi.* FROM mendianxinxi  mendianxinxi 	
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.MendianxinxiView" >
+
+		SELECT  mendianxinxi.* FROM mendianxinxi  mendianxinxi 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.MendianxinxiView" >
+		SELECT * FROM mendianxinxi  mendianxinxi <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>
